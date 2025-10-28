@@ -3,7 +3,6 @@
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { Navigation } from '@/components/ui/Navigation';
-import { ClientLink } from '@/components/ui/ClientLink';
 
 export default function HomePage() {
   const t = useTranslations();
@@ -23,18 +22,18 @@ export default function HomePage() {
             {t('homepage.description')}
           </p>
           <div className="flex justify-center space-x-4">
-            <ClientLink 
+            <Link 
               href="/register" 
               className="bg-primary-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-primary-700 transition-colors"
             >
               {t('homepage.getStarted')}
-            </ClientLink>
-            <ClientLink 
+            </Link>
+            <Link 
               href="/templates" 
               className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg text-lg font-medium hover:bg-gray-50 transition-colors"
             >
               View Templates
-            </ClientLink>
+            </Link>
           </div>
         </div>
 

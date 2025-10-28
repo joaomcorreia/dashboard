@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useCustomRouter } from '@/hooks/useCustomRouter';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
@@ -24,7 +24,7 @@ interface FormErrors {
 
 export default function LoginForm() {
   const t = useTranslations();
-  const router = useCustomRouter();
+  const router = useRouter();
   const { login, isLoading, error, clearError } = useAuth();
   
   const [formData, setFormData] = useState<LoginFormData>({
