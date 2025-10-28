@@ -1,77 +1,150 @@
-# Just Code Works (JCW) - SaaS Website Builder
+# Dashboard Monorepo# Just Code Works (JCW) - SaaS Website Builder
 
-A modern multi-tenant SaaS platform that allows users to build professional websites using pre-designed templates and sections.
 
-## 🚀 Features
 
-- **Multi-language Support**: English, Spanish, French, German with next-intl
-- **Admin Dashboard**: Template and section management, user management, analytics
-- **User Dashboard**: Website builder, template selection, site management
-- **Multi-tenant Architecture**: Subdomain-based tenancy
-- **Modern Stack**: Next.js 15, React 19, TypeScript, Tailwind CSS
-- **Django API Integration**: JWT authentication, RESTful API
+A monorepo containing both the Django backend and Next.js frontend for the Dashboard application.A modern multi-tenant SaaS platform that allows users to build professional websites using pre-designed templates and sections.
 
-## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 15 with App Router, React 19, TypeScript
-- **Styling**: Tailwind CSS with custom theme
-- **Internationalization**: next-intl
-- **Authentication**: JWT with Django backend
-- **Backend**: Django API (running separately at http://127.0.0.1:8000)
 
-## 📁 Project Structure
+## Structure## 🚀 Features
 
-```
-src/
-├── app/
-│   ├── [locale]/
-│   │   ├── layout.tsx          # Root layout with i18n
-│   │   ├── page.tsx            # Homepage
+
+
+```- **Multi-language Support**: English, Spanish, French, German with next-intl
+
+/- **Admin Dashboard**: Template and section management, user management, analytics
+
+├── backend/          # Django REST API backend- **User Dashboard**: Website builder, template selection, site management
+
+│   ├── dashboard_backend/  # Django project settings- **Multi-tenant Architecture**: Subdomain-based tenancy
+
+│   ├── builder/           # Main app with models, views, serializers- **Modern Stack**: Next.js 15, React 19, TypeScript, Tailwind CSS
+
+│   ├── manage.py         # Django management script- **Django API Integration**: JWT authentication, RESTful API
+
+│   └── .env             # Backend environment variables
+
+├── frontend/         # Next.js frontend application## 🛠️ Tech Stack
+
+│   ├── src/             # Source code
+
+│   ├── public/          # Static assets- **Frontend**: Next.js 15 with App Router, React 19, TypeScript
+
+│   ├── package.json     # Frontend dependencies- **Styling**: Tailwind CSS with custom theme
+
+│   └── next.config.js   # Next.js configuration- **Internationalization**: next-intl
+
+└── README.md        # This file- **Authentication**: JWT with Django backend
+
+```- **Backend**: Django API (running separately at http://127.0.0.1:8000)
+
+
+
+## Development Status## 📁 Project Structure
+
+
+
+✅ **Backend (Django 5.2.7)**```
+
+- Models: BrandProfile, ServiceCatalogsrc/
+
+- API endpoints: registration, onboarding, service catalogs├── app/
+
+- CORS configured for frontend ports│   ├── [locale]/
+
+- File upload handling│   │   ├── layout.tsx          # Root layout with i18n
+
+- Database migrations applied│   │   ├── page.tsx            # Homepage
+
 │   │   ├── dashboard/
-│   │   │   ├── admin/          # Admin panel
-│   │   │   │   ├── page.tsx    # Admin dashboard
-│   │   │   │   ├── templates/  # Template management
-│   │   │   │   ├── sections/   # Section management
-│   │   │   │   └── users/      # User management
-│   │   │   └── user/           # User dashboard
+
+✅ **Frontend (Next.js 15.5.6)**│   │   │   ├── admin/          # Admin panel
+
+- App Router with internationalization│   │   │   │   ├── page.tsx    # Admin dashboard
+
+- Registration → Onboarding → Dashboard flow│   │   │   │   ├── templates/  # Template management
+
+- API integration with backend│   │   │   │   ├── sections/   # Section management
+
+- Form handling (registration, onboarding)│   │   │   │   └── users/      # User management
+
+- Component structure established│   │   │   └── user/           # User dashboard
+
 │   │   │       ├── page.tsx    # User dashboard
-│   │   │       ├── my-site/    # Site builder
+
+## Getting Started│   │   │       ├── my-site/    # Site builder
+
 │   │   │       └── settings/   # User settings
-│   │   └── websites/
-│   │       └── [slug]/         # Generated user sites
-│   ├── api/                    # API routes (if needed)
-│   └── globals.css
-├── components/
-│   ├── ui/                     # Reusable UI components
-│   ├── admin/                  # Admin-specific components
-│   ├── user/                   # User dashboard components
+
+### Backend│   │   └── websites/
+
+```bash│   │       └── [slug]/         # Generated user sites
+
+cd backend│   ├── api/                    # API routes (if needed)
+
+python -m venv venv│   └── globals.css
+
+venv\Scripts\activate├── components/
+
+pip install django djangorestframework django-cors-headers pillow│   ├── ui/                     # Reusable UI components
+
+python manage.py runserver 8000│   ├── admin/                  # Admin-specific components
+
+```│   ├── user/                   # User dashboard components
+
 │   └── website-builder/        # Site building components
-├── lib/
-│   ├── api.ts                  # API client for Django backend
-│   ├── auth.ts                 # JWT authentication
-│   └── utils.ts                # Utility functions
-├── messages/                   # Translation files
-│   ├── en.json
+
+### Frontend├── lib/
+
+```bash│   ├── api.ts                  # API client for Django backend
+
+cd frontend│   ├── auth.ts                 # JWT authentication
+
+npm install│   └── utils.ts                # Utility functions
+
+npm run dev├── messages/                   # Translation files
+
+```│   ├── en.json
+
 │   ├── es.json
-│   ├── fr.json
+
+## Current Progress│   ├── fr.json
+
 │   └── de.json
-└── middleware.ts               # i18n middleware
+
+The application is approximately **10% ready** for production deployment. Core functionality is working:└── middleware.ts               # i18n middleware
+
 ```
 
-## 🚀 Getting Started
+1. ✅ User registration
 
-### Prerequisites
+2. ✅ 3-step onboarding process (description, services, branding)## 🚀 Getting Started
+
+3. ✅ Basic dashboard redirect
+
+4. ✅ API integration between frontend and backend### Prerequisites
+
+5. ✅ Database persistence
 
 - Node.js 18.17 or later
-- Django API server running at http://127.0.0.1:8000
 
-### Installation
+## Next Steps- Django API server running at http://127.0.0.1:8000
 
-1. **Install dependencies**:
-   ```bash
-   npm install
-   ```
 
+
+- [ ] Complete dashboard functionality### Installation
+
+- [ ] Add proper authentication/authorization
+
+- [ ] Implement page builder features1. **Install dependencies**:
+
+- [ ] Add error handling and validation   ```bash
+
+- [ ] UI/UX improvements   npm install
+
+- [ ] Testing   ```
+
+- [ ] Production deployment configuration
 2. **Set up environment variables**:
    ```bash
    # Copy .env.local and update values if needed
