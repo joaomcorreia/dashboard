@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 interface OnboardingData {
   description: string;
@@ -13,6 +13,8 @@ interface OnboardingData {
 
 export default function OnepageOnboardingFlow() {
   const router = useRouter();
+  const pathname = usePathname();
+  const currentLocale = pathname.split('/')[1] || 'en';
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   
@@ -74,8 +76,8 @@ export default function OnepageOnboardingFlow() {
       if (response.ok) {
         const result = await response.json();
         console.log('Onboarding success:', result);
-        // Redirect to dashboard or success page
-        router.push('/dashboard');
+        // Redirect to website builder to start building
+        router.push(`/${currentLocale}/builder`);
       } else {
         const errorText = await response.text();
         console.error('Onboarding failed:', response.status, errorText);

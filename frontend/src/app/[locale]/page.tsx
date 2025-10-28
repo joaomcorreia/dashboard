@@ -2,10 +2,13 @@
 
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { Navigation } from '@/components/ui/Navigation';
 
 export default function HomePage() {
   const t = useTranslations();
+  const params = useParams();
+  const currentLocale = params.locale as string;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
@@ -23,13 +26,13 @@ export default function HomePage() {
           </p>
           <div className="flex justify-center space-x-4">
             <Link 
-              href="/register" 
+              href={`/${currentLocale}/register`} 
               className="bg-primary-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-primary-700 transition-colors"
             >
               {t('homepage.getStarted')}
             </Link>
             <Link 
-              href="/templates" 
+              href={`/${currentLocale}/templates`} 
               className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg text-lg font-medium hover:bg-gray-50 transition-colors"
             >
               View Templates

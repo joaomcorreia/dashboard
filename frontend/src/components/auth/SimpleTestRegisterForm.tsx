@@ -25,18 +25,27 @@ export default function SimpleTestRegisterForm() {
     setResult('');
     
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/auth/register/`, {
+      const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE}/auth/register/`;
+      console.log('API URL:', apiUrl);
+      console.log('API Base:', process.env.NEXT_PUBLIC_API_BASE);
+      console.log('Form Data:', formData);
+      
+      const requestBody = {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        business_name: formData.business_name,
+        business_type: formData.business_type,
+      };
+      console.log('Request Body:', requestBody);
+      console.log('Request Body JSON:', JSON.stringify(requestBody));
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-          business_name: formData.business_name,
-          business_type: formData.business_type,
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       if (response.ok) {
@@ -65,6 +74,38 @@ export default function SimpleTestRegisterForm() {
       setResult(`Domain check: ${data.domain} is ${data.available ? 'available' : 'not available'}`);
     } catch (error) {
       setResult(`Domain check error: ${error}`);
+    }
+  };
+
+  const testApiConnectivity = async () => {
+    try {
+      console.log('Testing API connectivity...');
+      const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE}/auth/register/`;
+      console.log('Testing URL:', apiUrl);
+      
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: 'testuser',
+          email: 'test@example.com',
+          password: 'password123',
+          business_name: 'Test Business',
+          business_type: 'restaurant',
+        }),
+      });
+      
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
+      
+      const responseText = await response.text();
+      console.log('Response text:', responseText);
+      setResult(`API Test Response: ${response.status} - ${responseText}`);
+    } catch (error) {
+      console.error('API Test Error:', error);
+      setResult(`API Test Error: ${error}`);
     }
   };
 
@@ -138,22 +179,32 @@ export default function SimpleTestRegisterForm() {
               />
             </div>
 
-            <div className="flex space-x-2">
+            <div className="flex flex-col space-y-2">
               <button
                 type="submit"
                 disabled={isLoading}
-                className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50"
+                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50"
               >
                 {isLoading ? 'Registering...' : 'Register'}
               </button>
               
-              <button
-                type="button"
-                onClick={testDomainCheck}
-                className="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700"
-              >
-                Test Domain
-              </button>
+              <div className="flex space-x-2">
+                <button
+                  type="button"
+                  onClick={testDomainCheck}
+                  className="flex-1 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700"
+                >
+                  Test Domain
+                </button>
+                
+                <button
+                  type="button"
+                  onClick={testApiConnectivity}
+                  className="flex-1 bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700"
+                >
+                  Test API
+                </button>
+              </div>
             </div>
           </form>
 
