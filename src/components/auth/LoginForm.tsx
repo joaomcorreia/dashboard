@@ -9,6 +9,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { Loading } from '@/components/ui/Loading';
+import { Logo } from '@/components/ui/Logo';
 
 interface LoginFormData {
   email: string;
@@ -116,11 +117,9 @@ export default function LoginForm() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <Link href="/" className="flex justify-center">
-          <h1 className="text-2xl font-bold text-gray-900">
-            Just Code Works
-          </h1>
-        </Link>
+        <div className="flex justify-center">
+          <Logo variant="auth" />
+        </div>
         <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
           Sign in to your account
         </h2>

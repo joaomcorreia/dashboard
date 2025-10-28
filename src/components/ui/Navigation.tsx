@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { Button } from './Button';
+import { Logo } from './Logo';
 import { useAuth } from '@/contexts/AuthContext';
 
 export function Navigation() {
@@ -22,9 +23,7 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold text-gray-900">
-              Just Code Works
-            </Link>
+            <Logo variant="nav" />
           </div>
           
           <div className="flex items-center space-x-4">

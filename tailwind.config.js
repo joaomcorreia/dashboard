@@ -1,3 +1,5 @@
+const { getTailwindFontConfig } = require('./src/config/fonts');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -37,9 +39,7 @@ module.exports = {
           950: '#020617',
         },
       },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-      },
+      fontFamily: getTailwindFontConfig(),
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.3s ease-out',
