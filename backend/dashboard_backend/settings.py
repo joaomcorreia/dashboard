@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     
     # Local apps
     'builder',
+    'finance',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,7 @@ CORS_ALLOWED_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
+
+# Media files (uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
