@@ -1,0 +1,58 @@
+{
+  "navigation": {
+    "home": "Start",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "settings": "Einstellungen",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "logout": "Abmelden"
+  },
+  "homepage": {
+    "title": "Just Code Works",
+    "subtitle": "Erstelle Professionelle Websites mit Leichtigkeit",
+    "description": "Erstelle beeindruckende Websites mit unseren vorgefertigten Vorlagen und Abschnitten. Keine Programmierung erforderlich.",
+    "getStarted": "Loslegen",
+    "features": {
+      "title": "Warum Just Code Works wählen?",
+      "templates": {
+        "title": "Professionelle Vorlagen",
+        "description": "Wähle aus einer Vielzahl professionell gestalteter Vorlagen"
+      },
+      "sections": {
+        "title": "Modulare Abschnitte",
+        "description": "Mische und kombiniere Abschnitte, um deine perfekte Website zu erstellen"
+      },
+      "responsive": {
+        "title": "Mobile Responsive",
+        "description": "Alle Websites sehen auf jedem Gerät großartig aus"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Willkommen zurück",
+    "mySite": "Meine Website",
+    "templates": "Vorlagen",
+    "sections": "Abschnitte",
+    "settings": "Einstellungen"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "users": "Benutzer",
+    "templates": "Vorlagen",
+    "sections": "Abschnitte",
+    "tenants": "Mieter",
+    "analytics": "Analytics"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Etwas ist schief gelaufen",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "create": "Erstellen",
+    "back": "Zurück"
+  }
+}

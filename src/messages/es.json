@@ -1,0 +1,58 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "dashboard": "Panel",
+    "admin": "Admin",
+    "settings": "Configuración",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar Sesión"
+  },
+  "homepage": {
+    "title": "Just Code Works",
+    "subtitle": "Construye Sitios Web Profesionales con Facilidad",
+    "description": "Crea sitios web impresionantes usando nuestras plantillas y secciones prediseñadas. No se requiere programación.",
+    "getStarted": "Comenzar",
+    "features": {
+      "title": "¿Por qué elegir Just Code Works?",
+      "templates": {
+        "title": "Plantillas Profesionales",
+        "description": "Elige entre una variedad de plantillas diseñadas profesionalmente"
+      },
+      "sections": {
+        "title": "Secciones Modulares",
+        "description": "Mezcla y combina secciones para crear tu sitio web perfecto"
+      },
+      "responsive": {
+        "title": "Responsive Móvil",
+        "description": "Todos los sitios web se ven geniales en cualquier dispositivo"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "Bienvenido de nuevo",
+    "mySite": "Mi Sitio",
+    "templates": "Plantillas",
+    "sections": "Secciones",
+    "settings": "Configuración"
+  },
+  "admin": {
+    "title": "Panel de Administración",
+    "users": "Usuarios",
+    "templates": "Plantillas",
+    "sections": "Secciones",
+    "tenants": "Inquilinos",
+    "analytics": "Análisis"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "back": "Atrás"
+  }
+}

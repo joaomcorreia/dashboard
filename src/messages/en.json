@@ -1,0 +1,58 @@
+{
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "settings": "Settings",
+    "login": "Log In",
+    "register": "Sign Up",
+    "logout": "Log Out"
+  },
+  "homepage": {
+    "title": "Just Code Works",
+    "subtitle": "Build Professional Websites with Ease",
+    "description": "Create stunning websites using our pre-designed templates and sections. No coding required.",
+    "getStarted": "Get Started",
+    "features": {
+      "title": "Why Choose Just Code Works?",
+      "templates": {
+        "title": "Professional Templates",
+        "description": "Choose from a variety of professionally designed templates"
+      },
+      "sections": {
+        "title": "Modular Sections",
+        "description": "Mix and match sections to create your perfect website"
+      },
+      "responsive": {
+        "title": "Mobile Responsive",
+        "description": "All websites look great on any device"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back",
+    "mySite": "My Site",
+    "templates": "Templates",
+    "sections": "Sections",
+    "settings": "Settings"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "users": "Users",
+    "templates": "Templates",
+    "sections": "Sections",
+    "tenants": "Tenants",
+    "analytics": "Analytics"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "back": "Back"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "navigation": {
+    "home": "Início",
+    "dashboard": "Painel de Controlo",
+    "admin": "Administração",
+    "settings": "Definições",
+    "login": "Iniciar Sessão",
+    "register": "Registar",
+    "logout": "Terminar Sessão"
+  },
+  "homepage": {
+    "title": "Just Code Works",
+    "subtitle": "Construa Websites Profissionais com Facilidade",
+    "description": "Crie websites impressionantes utilizando os nossos modelos e secções pré-concebidos. Não é necessária programação.",
+    "getStarted": "Começar Agora",
+    "features": {
+      "title": "Porquê escolher Just Code Works?",
+      "templates": {
+        "title": "Modelos Profissionais",
+        "description": "Escolha entre uma variedade de modelos concebidos profissionalmente"
+      },
+      "sections": {
+        "title": "Secções Modulares",
+        "description": "Combine secções para criar o seu website perfeito"
+      },
+      "responsive": {
+        "title": "Responsivo para Telemóvel",
+        "description": "Todos os websites ficam óptimos em qualquer dispositivo"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Painel de Controlo",
+    "welcome": "Bem-vindo de volta",
+    "mySite": "O Meu Website",
+    "templates": "Modelos",
+    "sections": "Secções",
+    "settings": "Definições"
+  },
+  "admin": {
+    "title": "Painel de Administração",
+    "users": "Utilizadores",
+    "templates": "Modelos",
+    "sections": "Secções",
+    "tenants": "Inquilinos",
+    "analytics": "Analíticas"
+  },
+  "common": {
+    "loading": "A carregar...",
+    "error": "Algo correu mal",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Criar",
+    "back": "Voltar"
+  }
+}

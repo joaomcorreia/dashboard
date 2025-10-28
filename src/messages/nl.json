@@ -1,0 +1,58 @@
+{
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "settings": "Instellingen",
+    "login": "Inloggen",
+    "register": "Registreren",
+    "logout": "Uitloggen"
+  },
+  "homepage": {
+    "title": "Just Code Works",
+    "subtitle": "Bouw Professionele Websites met Gemak",
+    "description": "Creëer verbluffende websites met onze voorontworpen sjablonen en secties. Geen programmeren vereist.",
+    "getStarted": "Aan de slag",
+    "features": {
+      "title": "Waarom kiezen voor Just Code Works?",
+      "templates": {
+        "title": "Professionele Sjablonen",
+        "description": "Kies uit een verscheidenheid aan professioneel ontworpen sjablonen"
+      },
+      "sections": {
+        "title": "Modulaire Secties",
+        "description": "Mix en match secties om je perfecte website te creëren"
+      },
+      "responsive": {
+        "title": "Mobiel Responsief",
+        "description": "Alle websites zien er geweldig uit op elk apparaat"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welkom terug",
+    "mySite": "Mijn Site",
+    "templates": "Sjablonen",
+    "sections": "Secties",
+    "settings": "Instellingen"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "users": "Gebruikers",
+    "templates": "Sjablonen",
+    "sections": "Secties",
+    "tenants": "Huurders",
+    "analytics": "Analytics"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Er is iets misgegaan",
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "create": "Creëren",
+    "back": "Terug"
+  }
+}

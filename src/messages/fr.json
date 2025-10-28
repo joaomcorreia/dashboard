@@ -1,0 +1,58 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "dashboard": "Tableau de bord",
+    "admin": "Admin",
+    "settings": "Paramètres",
+    "login": "Se connecter",
+    "register": "S'inscrire",
+    "logout": "Déconnexion"
+  },
+  "homepage": {
+    "title": "Just Code Works",
+    "subtitle": "Créez des Sites Web Professionnels avec Facilité",
+    "description": "Créez des sites web époustouflants en utilisant nos modèles et sections pré-conçus. Aucun codage requis.",
+    "getStarted": "Commencer",
+    "features": {
+      "title": "Pourquoi choisir Just Code Works ?",
+      "templates": {
+        "title": "Modèles Professionnels",
+        "description": "Choisissez parmi une variété de modèles conçus professionnellement"
+      },
+      "sections": {
+        "title": "Sections Modulaires",
+        "description": "Mélangez et assortissez les sections pour créer votre site web parfait"
+      },
+      "responsive": {
+        "title": "Mobile Responsive",
+        "description": "Tous les sites web sont magnifiques sur n'importe quel appareil"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "welcome": "Bon retour",
+    "mySite": "Mon Site",
+    "templates": "Modèles",
+    "sections": "Sections",
+    "settings": "Paramètres"
+  },
+  "admin": {
+    "title": "Tableau de bord Admin",
+    "users": "Utilisateurs",
+    "templates": "Modèles",
+    "sections": "Sections",
+    "tenants": "Locataires",
+    "analytics": "Analytics"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Quelque chose s'est mal passé",
+    "save": "Sauvegarder",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "create": "Créer",
+    "back": "Retour"
+  }
+}
