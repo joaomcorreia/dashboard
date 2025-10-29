@@ -29,9 +29,11 @@ INSTALLED_APPS = [
     # Local apps
     'builder',
     'finance',
+    'templates_app',
 ]
 
 MIDDLEWARE = [
+    'templates_app.middleware.SimpleRequestLogMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

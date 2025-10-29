@@ -71,7 +71,7 @@ class ApiClient {
   private mockMode: boolean = false; // Disabled - using real API
 
   constructor() {
-    this.baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:8000/api';
+    this.baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
   }
 
   setToken(token: string) {
@@ -384,5 +384,295 @@ class ApiClient {
   }
 }
 
+// Template Management Types
+interface TemplateUpload {
+  id: string;
+  title: string;
+  image: string;
+  status: 'PENDING' | 'READY' | 'FAILED';
+  created_at: string;
+  notes: string;
+}
+
+interface ConversionJob {
+  id: string;
+  upload: string;
+  upload_title: string;
+  target: 'DJANGO' | 'NEXTJS';
+  status: 'QUEUED' | 'RUNNING' | 'SUCCESS' | 'ERROR';
+  log: string;
+  zip_file: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+interface LibraryItem {
+  id: string;
+  name: string;
+  target: 'DJANGO' | 'NEXTJS';
+  zip_file: string;
+  created_at: string;
+}
+
 export const apiClient = new ApiClient();
-export type { User, AuthTokens };
+
+// Template Management API Functions using simple fetch
+
+// Upload template screenshot
+export async function uploadTemplate(
+  file: File, 
+  title: string, 
+  notes: string = ''
+): Promise<TemplateUpload> {
+  const formData = new FormData();
+  formData.append('image', file);
+  formData.append('title', title);
+  formData.append('notes', notes);
+
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const response = await fetch(`${baseUrl}/templates/uploads/`, {
+    method: 'POST',
+    body: formData,
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || `HTTP ${response.status}`);
+  }
+
+  return response.json();
+}
+
+// List all uploads
+export async function listUploads(): Promise<TemplateUpload[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const url = `${baseUrl}/templates/uploads/`;
+  console.log('Fetching from URL:', url);
+  
+  try {
+    const response = await fetch(url, {
+      credentials: 'include',
+    });
+
+    console.log('Response status:', response.status);
+    console.log('Response ok:', response.ok);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    throw error;
+  }
+}
+
+// Get single upload
+export async function getUpload(id: string): Promise<TemplateUpload> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const response = await fetch(`${baseUrl}/templates/uploads/${id}/`, {
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  return response.json();
+}
+
+// Delete upload
+export async function deleteUpload(id: string): Promise<void> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const response = await fetch(`${baseUrl}/templates/uploads/${id}/`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+}
+
+// Create conversion job
+export async function createJob(
+  uploadId: string, 
+  target: 'DJANGO' | 'NEXTJS'
+): Promise<ConversionJob> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const url = `${baseUrl.replace(/\/$/, '')}/templates/jobs/`;
+  
+  console.log('Creating job:', { upload: uploadId, target });
+  
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      upload: uploadId,
+      target: target,
+    }),
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    const text = await response.text().catch(() => '');
+    console.error('Job creation failed:', response.status, text);
+    throw new Error(`HTTP ${response.status} ${response.statusText} – ${text}`);
+  }
+
+  return response.json();
+}
+
+// List all jobs
+export async function listJobs(): Promise<ConversionJob[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const response = await fetch(`${baseUrl}/templates/jobs/`, {
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  return response.json();
+}
+
+// Get single job
+export async function getJob(id: string): Promise<ConversionJob> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const response = await fetch(`${baseUrl}/templates/jobs/${id}/`, {
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  return response.json();
+}
+
+// Poll job status until completion
+export async function pollJobStatus(
+  jobId: string,
+  onUpdate?: (job: ConversionJob) => void,
+  timeout: number = 120000 // 2 minutes
+): Promise<ConversionJob> {
+  const startTime = Date.now();
+  const pollInterval = 2000; // 2 seconds
+
+  return new Promise((resolve, reject) => {
+    const poll = async () => {
+      try {
+        const job = await getJob(jobId);
+        
+        if (onUpdate) {
+          onUpdate(job);
+        }
+
+        // Job completed
+        if (job.status === 'SUCCESS' || job.status === 'ERROR') {
+          resolve(job);
+          return;
+        }
+
+        // Check timeout
+        if (Date.now() - startTime > timeout) {
+          reject(new Error('Job polling timeout'));
+          return;
+        }
+
+        // Continue polling
+        setTimeout(poll, pollInterval);
+      } catch (error) {
+        reject(error);
+      }
+    };
+
+    poll();
+  });
+}
+
+// Delete job
+export async function deleteJob(id: string): Promise<void> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const response = await fetch(`${baseUrl}/templates/jobs/${id}/`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+}
+
+// Add successful job to library
+export async function addToLibrary(
+  jobId: string, 
+  name: string
+): Promise<LibraryItem> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const response = await fetch(`${baseUrl}/templates/library/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      job_id: jobId,
+      name: name,
+    }),
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  return response.json();
+}
+
+// List library items
+export async function listLibrary(): Promise<LibraryItem[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const response = await fetch(`${baseUrl}/templates/library/`, {
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  return response.json();
+}
+
+// Get single library item
+export async function getLibraryItem(id: string): Promise<LibraryItem> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const response = await fetch(`${baseUrl}/templates/library/${id}/`, {
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  return response.json();
+}
+
+// Delete library item
+export async function deleteLibraryItem(id: string): Promise<void> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const response = await fetch(`${baseUrl}/templates/library/${id}/`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+}
+
+export type { User, AuthTokens, TemplateUpload, ConversionJob, LibraryItem };

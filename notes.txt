@@ -9,3 +9,10 @@ Password: password123
 For Business Admin (Admin Panel):
 Email: business@example.com
 Password: password123
+
+ Available URLs:
+Frontend: http://localhost:3000
+Finance Dashboard: http://localhost:3000/en/admin/finance
+Templates: http://localhost:3000/en/admin/templates
+Preview Builder: http://localhost:3000/preview
+Backend API: http://127.0.0.1:8000
