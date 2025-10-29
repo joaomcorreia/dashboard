@@ -211,25 +211,11 @@ export const JCW_RESTAURANT_TEMPLATE: SectionTemplate[] = [
         subheading: 'Carefully crafted dishes made with love',
         items: [
           {
-            title: 'Grilled Salmon',
-            description: 'Fresh Atlantic salmon with herbs and lemon',
-            price: '$24.99',
-            category: 'Main Course',
-            image: '/images/menu/salmon.jpg'
-          },
-          {
-            title: 'Pasta Carbonara',
-            description: 'Traditional Italian pasta with bacon and cream',
-            price: '$18.99',
-            category: 'Main Course',
-            image: '/images/menu/carbonara.jpg'
-          },
-          {
-            title: 'Caesar Salad',
-            description: 'Crisp romaine lettuce with parmesan and croutons',
-            price: '$12.99',
-            category: 'Appetizer',
-            image: '/images/menu/caesar.jpg'
+            title: '[Menu Item Name]',
+            description: '[Menu item description]',
+            price: '$0.00',
+            category: '[Category]',
+            image: '/images/menu/placeholder.jpg'
           }
         ]
       },
@@ -238,25 +224,11 @@ export const JCW_RESTAURANT_TEMPLATE: SectionTemplate[] = [
         subheading: 'Platos cuidadosamente elaborados con amor',
         items: [
           {
-            title: 'Salmón a la Parrilla',
-            description: 'Salmón atlántico fresco con hierbas y limón',
-            price: '$24.99',
-            category: 'Plato Principal',
-            image: '/images/menu/salmon.jpg'
-          },
-          {
-            title: 'Pasta Carbonara',
-            description: 'Pasta italiana tradicional con tocino y crema',
-            price: '$18.99',
-            category: 'Plato Principal',
-            image: '/images/menu/carbonara.jpg'
-          },
-          {
-            title: 'Ensalada César',
-            description: 'Lechuga romana crujiente con parmesano y crutones',
-            price: '$12.99',
-            category: 'Aperitivo',
-            image: '/images/menu/caesar.jpg'
+            title: '[Nombre del Artículo del Menú]',
+            description: '[Descripción del artículo del menú]',
+            price: '$0.00',
+            category: '[Categoría]',
+            image: '/images/menu/placeholder.jpg'
           }
         ]
       }
@@ -321,57 +293,17 @@ export const JCW_RESTAURANT_TEMPLATE: SectionTemplate[] = [
         subheading: 'Select the perfect plan for your needs',
         items: [
           {
-            title: 'Basic Plan',
-            description: 'Perfect for getting started',
-            price: '$9.99',
-            category: 'monthly',
+            title: '[Plan Name]',
+            description: '[Plan description]',
+            price: '$0.00',
+            category: '[billing period]',
             features: [
-              '1 Website',
-              '10GB Storage',
-              'Basic Support',
-              'SSL Certificate',
-              '99.9% Uptime'
+              '[Feature 1]',
+              '[Feature 2]',
+              '[Feature 3]'
             ],
             highlighted: false,
-            buttonText: 'Get Started',
-            buttonLink: '#contact'
-          },
-          {
-            title: 'Pro Plan',
-            description: 'Most popular choice',
-            price: '$19.99',
-            category: 'monthly',
-            features: [
-              '5 Websites',
-              '50GB Storage',
-              'Priority Support',
-              'SSL Certificate',
-              '99.9% Uptime',
-              'Free Domain',
-              'Email Accounts'
-            ],
-            highlighted: true,
-            buttonText: 'Start Free Trial',
-            buttonLink: '#contact'
-          },
-          {
-            title: 'Enterprise',
-            description: 'For growing businesses',
-            price: '$49.99',
-            category: 'monthly',
-            features: [
-              'Unlimited Websites',
-              '200GB Storage',
-              'Premium Support',
-              'SSL Certificate',
-              '99.9% Uptime',
-              'Free Domain',
-              'Unlimited Email',
-              'Advanced Security',
-              'CDN Included'
-            ],
-            highlighted: false,
-            buttonText: 'Contact Sales',
+            buttonText: '[Button Text]',
             buttonLink: '#contact'
           }
         ]
@@ -381,57 +313,17 @@ export const JCW_RESTAURANT_TEMPLATE: SectionTemplate[] = [
         subheading: 'Selecciona el plan perfecto para tus necesidades',
         items: [
           {
-            title: 'Plan Básico',
-            description: 'Perfecto para comenzar',
-            price: '$9.99',
-            category: 'mensual',
+            title: '[Nombre del Plan]',
+            description: '[Descripción del plan]',
+            price: '$0.00',
+            category: '[período de facturación]',
             features: [
-              '1 Sitio Web',
-              '10GB Almacenamiento',
-              'Soporte Básico',
-              'Certificado SSL',
-              '99.9% Disponibilidad'
+              '[Característica 1]',
+              '[Característica 2]',
+              '[Característica 3]'
             ],
             highlighted: false,
-            buttonText: 'Comenzar',
-            buttonLink: '#contact'
-          },
-          {
-            title: 'Plan Pro',
-            description: 'La opción más popular',
-            price: '$19.99',
-            category: 'mensual',
-            features: [
-              '5 Sitios Web',
-              '50GB Almacenamiento',
-              'Soporte Prioritario',
-              'Certificado SSL',
-              '99.9% Disponibilidad',
-              'Dominio Gratis',
-              'Cuentas de Email'
-            ],
-            highlighted: true,
-            buttonText: 'Prueba Gratis',
-            buttonLink: '#contact'
-          },
-          {
-            title: 'Enterprise',
-            description: 'Para empresas en crecimiento',
-            price: '$49.99',
-            category: 'mensual',
-            features: [
-              'Sitios Web Ilimitados',
-              '200GB Almacenamiento',
-              'Soporte Premium',
-              'Certificado SSL',
-              '99.9% Disponibilidad',
-              'Dominio Gratis',
-              'Email Ilimitado',
-              'Seguridad Avanzada',
-              'CDN Incluido'
-            ],
-            highlighted: false,
-            buttonText: 'Contactar Ventas',
+            buttonText: '[Texto del Botón]',
             buttonLink: '#contact'
           }
         ]

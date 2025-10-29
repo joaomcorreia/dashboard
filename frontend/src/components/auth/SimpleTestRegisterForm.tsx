@@ -83,18 +83,20 @@ export default function SimpleTestRegisterForm() {
       const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE}/auth/register/`;
       console.log('Testing URL:', apiUrl);
       
+      const requestBody = {
+        username: formData.username || 'testuser',
+        email: formData.email || 'test@example.com',
+        password: formData.password || 'testpassword123',
+        business_name: formData.business_name || 'Test Business',
+        business_type: formData.business_type || 'restaurant',
+      };
+      
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          username: 'testuser',
-          email: 'test@example.com',
-          password: 'password123',
-          business_name: 'Test Business',
-          business_type: 'restaurant',
-        }),
+        body: JSON.stringify(requestBody),
       });
       
       console.log('Response status:', response.status);

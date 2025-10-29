@@ -111,11 +111,11 @@ export function WebsitePreview({ businessData, onUpdateBusinessData }: WebsitePr
   return (
     <div className="h-full overflow-y-auto bg-white">
       {/* Website Content */}
-      <div className="max-w-4xl mx-auto">
+      <div className="w-full">
         
         {/* Header Section */}
         <header 
-          className="relative py-16 px-6 text-center text-white"
+          className="relative py-8 sm:py-12 lg:py-16 px-4 sm:px-6 text-center text-white"
           style={{ 
             background: `linear-gradient(135deg, ${businessData.primaryColor} 0%, ${businessData.secondaryColor} 100%)` 
           }}
@@ -123,30 +123,30 @@ export function WebsitePreview({ businessData, onUpdateBusinessData }: WebsitePr
           <div className="max-w-3xl mx-auto">
             {/* Logo */}
             {logoUrl && (
-              <div className="mb-6">
+              <div className="mb-4 sm:mb-6">
                 <img 
                   src={logoUrl} 
                   alt={businessData.businessName}
-                  className="h-16 w-auto mx-auto"
+                  className="h-10 sm:h-12 lg:h-16 w-auto mx-auto"
                 />
               </div>
             )}
             
             {/* Business Name */}
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-4">
               {businessData.businessName}
             </h1>
             
             {/* Tagline */}
             {businessData.tagline && (
-              <p className="text-xl opacity-90 mb-8">
+              <p className="text-sm sm:text-lg lg:text-xl opacity-90 mb-6 sm:mb-8">
                 {businessData.tagline}
               </p>
             )}
             
             {/* CTA Button */}
             <button 
-              className="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+              className="bg-white text-gray-900 px-4 sm:px-6 lg:px-8 py-2 sm:py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-sm sm:text-base"
             >
               Get Started
             </button>
@@ -155,20 +155,20 @@ export function WebsitePreview({ businessData, onUpdateBusinessData }: WebsitePr
 
         {/* About Section */}
         {businessData.description && (
-          <section className="py-16 px-6">
+          <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 text-center mb-6 sm:mb-8 lg:mb-12">
                 About Us
               </h2>
               
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
                 {/* Text Content */}
                 <div className="order-2 lg:order-1">
-                  <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                  <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed mb-4 sm:mb-6">
                     {businessData.description}
                   </p>
                   {businessData.address && (
-                    <p className="text-gray-500 text-sm">
+                    <p className="text-gray-500 text-xs sm:text-sm">
                       📍 {businessData.address}
                     </p>
                   )}
@@ -206,29 +206,29 @@ export function WebsitePreview({ businessData, onUpdateBusinessData }: WebsitePr
                       )}
                     </div>
                   ) : (
-                    <div className="w-full h-80 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center">
-                      <div className="text-center">
-                        <div className="w-16 h-16 bg-gray-200 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                          <span className="text-2xl">🖼️</span>
+                    <div className="w-full h-48 sm:h-64 lg:h-80 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center">
+                      <div className="text-center px-4">
+                        <div className="w-12 sm:w-16 h-12 sm:h-16 bg-gray-200 rounded-lg mx-auto mb-3 sm:mb-4 flex items-center justify-center">
+                          <span className="text-xl sm:text-2xl">🖼️</span>
                         </div>
-                        <h3 className="text-lg font-medium text-gray-900 mb-2">
+                        <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">
                           Add Business Image
                         </h3>
-                        <p className="text-gray-500 text-sm mb-6 max-w-xs">
+                        <p className="text-gray-500 text-xs sm:text-sm mb-4 sm:mb-6 max-w-xs">
                           Showcase your business with a professional image
                         </p>
                         
                         {onUpdateBusinessData && (
-                          <div className="flex flex-col gap-3">
+                          <div className="flex flex-col gap-2 sm:gap-3">
                             <button
                               onClick={generateAboutImage}
                               disabled={isGeneratingImage}
-                              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all disabled:opacity-50"
+                              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-3 sm:px-4 lg:px-6 py-2 rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all disabled:opacity-50 text-xs sm:text-sm"
                             >
                               {isGeneratingImage ? '🎨 Generating...' : '✨ Generate with AI'}
                             </button>
                             
-                            <label className="bg-gray-600 text-white px-6 py-2 rounded-lg font-medium cursor-pointer hover:bg-gray-700 transition-colors">
+                            <label className="bg-gray-600 text-white px-3 sm:px-4 lg:px-6 py-2 rounded-lg font-medium cursor-pointer hover:bg-gray-700 transition-colors text-xs sm:text-sm">
                               📁 Upload Image
                               <input
                                 type="file"
@@ -250,18 +250,18 @@ export function WebsitePreview({ businessData, onUpdateBusinessData }: WebsitePr
 
         {/* Services Section */}
         {businessData.services.length > 0 && (
-          <section className="py-16 px-6 bg-gray-50">
+          <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 bg-gray-50">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 text-center mb-6 sm:mb-8 lg:mb-12">
                 Our Services
               </h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 {businessData.services.map((service, index) => (
-                  <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  <div key={index} className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
+                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3">
                       {service}
                     </h3>
-                    <p className="text-gray-600">
+                    <p className="text-sm sm:text-base text-gray-600">
                       Professional {service.toLowerCase()} services tailored to your needs.
                     </p>
                   </div>

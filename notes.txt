@@ -1,0 +1,11 @@
+For Regular Access (Builder):
+Email: user@test.com
+Password: password123
+
+For Admin Access (User Dashboard):
+Email: admin@test.com
+Password: password123
+
+For Business Admin (Admin Panel):
+Email: business@example.com
+Password: password123

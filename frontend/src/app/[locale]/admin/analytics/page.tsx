@@ -17,31 +17,17 @@ import {
 export default function AdminAnalyticsPage() {
   const [timeRange, setTimeRange] = useState('7d');
 
-  // Mock data - replace with real API calls
+  // Real data - to be loaded from API
   const metrics = {
-    totalUsers: { value: 1234, change: 12.5, trend: 'up' },
-    activeBusinesses: { value: 856, change: 8.2, trend: 'up' },
-    monthlyRevenue: { value: 45678, change: 15.3, trend: 'up' },
-    totalPageViews: { value: 125430, change: -2.1, trend: 'down' }
+    totalUsers: { value: 0, change: 0, trend: 'neutral' as 'up' | 'down' | 'neutral' },
+    activeBusinesses: { value: 0, change: 0, trend: 'neutral' as 'up' | 'down' | 'neutral' },
+    monthlyRevenue: { value: 0, change: 0, trend: 'neutral' as 'up' | 'down' | 'neutral' },
+    totalPageViews: { value: 0, change: 0, trend: 'neutral' as 'up' | 'down' | 'neutral' }
   };
 
-  const chartData = [
-    { date: '2024-10-21', users: 120, businesses: 15, revenue: 2450 },
-    { date: '2024-10-22', users: 135, businesses: 18, revenue: 2680 },
-    { date: '2024-10-23', users: 148, businesses: 22, revenue: 2890 },
-    { date: '2024-10-24', users: 162, businesses: 19, revenue: 3120 },
-    { date: '2024-10-25', users: 178, businesses: 25, revenue: 3450 },
-    { date: '2024-10-26', users: 195, businesses: 28, revenue: 3780 },
-    { date: '2024-10-27', users: 210, businesses: 32, revenue: 4100 }
-  ];
+  const chartData: Array<{ date: string; users: number; businesses: number; revenue: number }> = [];
 
-  const topBusinessTypes = [
-    { type: 'Restaurant', count: 345, percentage: 40.3 },
-    { type: 'Services', count: 256, percentage: 29.9 },
-    { type: 'Technology', count: 123, percentage: 14.4 },
-    { type: 'Retail', count: 89, percentage: 10.4 },
-    { type: 'Other', count: 43, percentage: 5.0 }
-  ];
+  const topBusinessTypes: Array<{ type: string; count: number; percentage: number }> = [];
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', {

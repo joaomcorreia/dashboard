@@ -12,9 +12,16 @@ import {
   Eye,
   Edit,
   Trash2,
-  CheckCircle
+  CheckCircle,
+  CreditCard,
+  Wallet,
+  Receipt,
+  BarChart,
+  Layers
 } from 'lucide-react';
 import { getSummary, getExpenses, markExpensePaid, deleteExpense, type Expense, type Summary } from '../../../../lib/financeApi';
+import SubscriptionsTab from '@/components/finance/SubscriptionsTab';
+import PlansTab from '@/components/finance/PlansTab';
 
 interface SummaryCardProps {
   title: string;
@@ -43,6 +50,7 @@ const FinanceDashboard = () => {
   const [ytdSummary, setYtdSummary] = useState<Summary | null>(null);
   const [recentExpenses, setRecentExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<"overview"|"subscriptions"|"plans"|"expenses"|"invoices"|"reports">("overview");
 
   useEffect(() => {
     loadDashboardData();
@@ -133,8 +141,36 @@ const FinanceDashboard = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {/* Tabs Navigation */}
+        <div className="flex border-b border-gray-200 mb-6">
+          {[
+            { id: "overview", icon: <DollarSign size={16} />, label: "Overview" },
+            { id: "subscriptions", icon: <CreditCard size={16} />, label: "Subscriptions" },
+            { id: "plans", icon: <Layers size={16} />, label: "Plans" },
+            { id: "expenses", icon: <Wallet size={16} />, label: "Expenses" },
+            { id: "invoices", icon: <FileText size={16} />, label: "Invoices" },
+            { id: "reports", icon: <BarChart size={16} />, label: "Reports" },
+          ].map(tab => (
+            <button
+              key={tab.id}
+              className={`flex items-center px-4 py-2 border-b-2 font-medium text-sm ${
+                activeTab === tab.id 
+                  ? "border-blue-500 text-blue-600" 
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              }`}
+              onClick={() => setActiveTab(tab.id as any)}
+            >
+              <span className="mr-2">{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Tab Content */}
+        {activeTab === "overview" && (
+          <div>
+            {/* Summary Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <SummaryCard
             title="This Month"
             amount={monthSummary?.total || '0.00'}
@@ -265,6 +301,37 @@ const FinanceDashboard = () => {
             )}
           </div>
         </div>
+        </div>
+        )}
+
+        {activeTab === "subscriptions" && (
+          <div className="bg-white rounded-lg shadow p-6">
+            <SubscriptionsTab />
+          </div>
+        )}
+
+        {activeTab === "plans" && (
+          <div className="bg-white rounded-lg shadow p-6">
+            <PlansTab />
+          </div>
+        )}
+
+        {activeTab === "expenses" && (
+          <div className="bg-white rounded-lg shadow p-6">
+            <div className="text-center text-gray-500">
+              Full expenses management coming soon. Use Overview tab for now.
+            </div>
+          </div>
+        )}
+
+        {(activeTab === "invoices" || activeTab === "reports") && (
+          <div className="bg-white rounded-lg shadow p-12 text-center">
+            <div className="text-gray-500 text-lg">
+              Coming soon: {activeTab === "invoices" ? "Invoice Management" : "Financial Reports"}
+            </div>
+            <p className="text-gray-400 mt-2">This feature is under development</p>
+          </div>
+        )}
       </div>
     </div>
   );

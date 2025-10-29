@@ -1,0 +1,45 @@
+:root {
+  /* Brand palette (set these dynamically from user choice/logo) */
+  --brand-primary:   #0D47A1;
+  --brand-secondary: #1976D2;
+  --brand-accent:    #E3F2FD;
+  --brand-bg:        #FFFFFF;
+  --brand-text:      #111111;
+
+  /* Bootstrap tokens bound to brand - Override Bootstrap's CSS custom properties */
+  --bs-primary:      var(--brand-primary);
+  --bs-primary-rgb:  13, 71, 161;
+  --bs-secondary:    var(--brand-secondary);
+  --bs-secondary-rgb: 25, 118, 210;
+  --bs-info:         var(--brand-accent);
+  --bs-body-bg:      var(--brand-bg);
+  --bs-body-color:   var(--brand-text);
+  --bs-link-color:   var(--brand-primary);
+  --bs-border-color: color-mix(in oklab, var(--brand-primary) 15%, transparent);
+  
+  /* Bootstrap button variants */
+  --bs-btn-bg:       var(--brand-primary);
+  --bs-btn-border-color: var(--brand-primary);
+  --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+  --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+  --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 80%, black);
+  --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 80%, black);
+}
+
+/* Force Bootstrap primary button colors */
+.btn-primary {
+  --bs-btn-bg: var(--brand-primary) !important;
+  --bs-btn-border-color: var(--brand-primary) !important;
+  --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black) !important;
+  --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black) !important;
+  --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 80%, black) !important;
+  --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 80%, black) !important;
+}
+
+/* Force text-primary color */
+.text-primary {
+  color: var(--brand-primary) !important;
+}
+
+/* Utility for section spacing if needed */
+.section-pad { padding-block: 3rem; }

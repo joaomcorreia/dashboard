@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { 
   LayoutDashboard,
   Users, 
@@ -19,9 +19,11 @@ import {
   Bell,
   HelpCircle,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  LogOut
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface SidebarItem {
   name: string;
@@ -139,6 +141,8 @@ interface AdminSidebarProps {
 
 export function AdminSidebar({ className }: AdminSidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { logout, user } = useAuth();
   const [expandedItems, setExpandedItems] = React.useState<string[]>([]);
 
   const toggleExpanded = (href: string) => {
@@ -147,6 +151,13 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
         ? prev.filter(item => item !== href)
         : [...prev, href]
     );
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    // Extract current locale from pathname
+    const currentLocale = pathname.split('/')[1] || 'en';
+    router.push(`/${currentLocale}`);
   };
 
   const isActive = (href: string) => {
@@ -227,6 +238,22 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
 
         <div className="mt-8 pt-8 border-t border-gray-200">
           <div className="text-xs uppercase text-gray-500 font-semibold mb-3 px-3">
+            Account
+          </div>
+          <div className="space-y-1">
+            <div className="px-3 py-2 text-xs text-gray-500">
+              {user?.email}
+            </div>
+            <button 
+              onClick={handleLogout}
+              className="w-full flex items-center px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            >
+              <LogOut className="w-5 h-5" />
+              <span className="ml-3">Logout</span>
+            </button>
+          </div>
+          
+          <div className="text-xs uppercase text-gray-500 font-semibold mb-3 px-3 mt-6">
             Coming Soon
           </div>
           <div className="space-y-1">

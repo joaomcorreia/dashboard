@@ -10,6 +10,7 @@ interface User {
   last_name: string;
   is_staff: boolean;
   is_superuser: boolean;
+  user_type?: string;
 }
 
 interface RegistrationData {
@@ -67,7 +68,7 @@ interface AITextSuggestion {
 class ApiClient {
   private baseUrl: string;
   private accessToken: string | null = null;
-  private mockMode: boolean = false; // Using Django backend now
+  private mockMode: boolean = false; // Disabled - using real API
 
   constructor() {
     this.baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:8000/api';
@@ -93,6 +94,7 @@ class ApiClient {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
+      localStorage.removeItem('mock_user');
     }
   }
 
@@ -143,22 +145,71 @@ class ApiClient {
 
   // Authentication (Django session-based)
   async login(email: string, password: string): Promise<{ success: boolean }> {
-    // For now, mock login since Django session auth needs CSRF tokens
-    // In production, you'd implement proper Django session authentication
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('mock_user', JSON.stringify({
-        id: 1,
-        email: email,
-        first_name: 'Test',
-        last_name: 'User',
-        is_staff: email.includes('admin'),
-        is_superuser: email.includes('admin')
-      }));
+    if (this.mockMode) {
+      // Mock login for development
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      if (typeof window !== 'undefined') {
+        const emailLower = email.toLowerCase();
+        let userData;
+        
+        if (emailLower === 'admin@test.com') {
+          // Admin user (after payment) - regular user with admin-like privileges
+          userData = {
+            id: 1,
+            email: email,
+            first_name: 'Admin',
+            last_name: 'User',
+            is_staff: false,
+            is_superuser: false,
+            user_type: 'admin_paid'
+          };
+        } else if (emailLower === 'user@test.com') {
+          // Regular user building website
+          userData = {
+            id: 2,
+            email: email,
+            first_name: 'Regular',
+            last_name: 'User',
+            is_staff: false,
+            is_superuser: false,
+            user_type: 'regular'
+          };
+        } else if (emailLower === 'business@example.com') {
+          // Business user with admin dashboard access
+          userData = {
+            id: 3,
+            email: email,
+            first_name: 'Business',
+            last_name: 'Admin',
+            is_staff: true,
+            is_superuser: true,
+            user_type: 'business_admin'
+          };
+        } else {
+          // Default user
+          userData = {
+            id: 4,
+            email: email,
+            first_name: 'Test',
+            last_name: 'User',
+            is_staff: email.includes('admin'),
+            is_superuser: email.includes('admin'),
+            user_type: 'default'
+          };
+        }
+        
+        localStorage.setItem('mock_user', JSON.stringify(userData));
+      }
+      
+      return { success: true };
     }
-    
-    return { success: true };
+
+    // For production: implement proper Django session authentication
+    return this.request<{ success: boolean }>('/auth/login/', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
   }
 
   // Registration with business info
@@ -214,6 +265,15 @@ class ApiClient {
   }
 
   async logout(): Promise<void> {
+    if (this.mockMode) {
+      // In mock mode, just clear the tokens and mock user data
+      this.clearToken();
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('mock_user');
+      }
+      return;
+    }
+
     try {
       await this.request('/api/auth/logout/', {
         method: 'POST',

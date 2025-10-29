@@ -115,87 +115,51 @@ export default function AdminOverview() {
   const dashboardStats = [
     {
       title: 'Total Users',
-      value: '1,234',
-      change: '+12.5%',
-      trend: 'up' as const,
+      value: '0',
+      change: '0%',
+      trend: 'neutral' as const,
       icon: <Users className="w-6 h-6" />
     },
     {
       title: 'Active Businesses',
-      value: '856',
-      change: '+8.2%',
-      trend: 'up' as const,
+      value: '0',
+      change: '0%',
+      trend: 'neutral' as const,
       icon: <Building2 className="w-6 h-6" />
     },
     {
       title: 'Monthly Revenue',
-      value: '$45,678',
-      change: '+15.3%',
-      trend: 'up' as const,
+      value: '$0',
+      change: '0%',
+      trend: 'neutral' as const,
       icon: <DollarSign className="w-6 h-6" />
     },
     {
       title: 'Support Tickets',
-      value: '23',
-      change: '-5.1%',
-      trend: 'down' as const,
+      value: '0',
+      change: '0%',
+      trend: 'neutral' as const,
       icon: <AlertCircle className="w-6 h-6" />
     }
   ];
 
-  const recentUsers = [
-    {
-      id: '1',
-      name: 'John Doe',
-      email: 'john@example.com',
-      businessName: 'John\'s Restaurant',
-      status: 'active' as const,
-      createdAt: '2024-10-25'
-    },
-    {
-      id: '2',
-      name: 'Jane Smith',
-      email: 'jane@example.com',
-      businessName: 'Smith Bakery',
-      status: 'pending' as const,
-      createdAt: '2024-10-24'
-    },
-    {
-      id: '3',
-      name: 'Mike Johnson',
-      email: 'mike@example.com',
-      businessName: 'Tech Solutions',
-      status: 'active' as const,
-      createdAt: '2024-10-23'
-    }
-  ];
+  const recentUsers: Array<{
+    id: string;
+    name: string;
+    email: string;
+    businessName: string;
+    status: 'active' | 'pending' | 'inactive';
+    createdAt: string;
+  }> = [];
 
-  const recentBusinesses = [
-    {
-      id: '1',
-      name: 'Bella Vista Restaurant',
-      owner: 'Maria Garcia',
-      type: 'Restaurant',
-      status: 'active' as const,
-      createdAt: '2024-10-25'
-    },
-    {
-      id: '2',
-      name: 'Tech Innovations Inc',
-      owner: 'David Chen',
-      type: 'Technology',
-      status: 'pending' as const,
-      createdAt: '2024-10-24'
-    },
-    {
-      id: '3',
-      name: 'Green Thumb Landscaping',
-      owner: 'Sarah Wilson',
-      type: 'Services',
-      status: 'active' as const,
-      createdAt: '2024-10-23'
-    }
-  ];
+  const recentBusinesses: Array<{
+    id: string;
+    name: string;
+    owner: string;
+    type: string;
+    status: 'active' | 'pending' | 'inactive';
+    createdAt: string;
+  }> = [];
 
   const getStatusColor = (status: string) => {
     switch (status) {

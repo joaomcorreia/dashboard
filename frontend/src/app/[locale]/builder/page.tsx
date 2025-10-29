@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useRouter, usePathname } from 'next/navigation';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { WebsitePreview } from '@/components/builder/WebsitePreview';
 import { BusinessDetailsForm } from '@/components/builder/BusinessDetailsForm';
 import { LogoSection } from '@/components/builder/LogoSection';
+import { DeviceViewSwitcher } from '@/components/builder/DeviceViewSwitcher';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface BusinessData {
   businessName: string;
@@ -27,6 +30,9 @@ interface BusinessData {
 
 export default function WebsiteBuilderPage() {
   const t = useTranslations();
+  const { logout } = useAuth();
+  const router = useRouter();
+  const pathname = usePathname();
   const [activeSection, setActiveSection] = useState('business-details');
   const [businessData, setBusinessData] = useState<BusinessData>({
     businessName: '',
@@ -38,10 +44,10 @@ export default function WebsiteBuilderPage() {
     services: [],
     logo: null,
     gallery: [],
-    galleryFolders: { 'General': [] },
+    galleryFolders: {},
     aboutImage: null,
-    primaryColor: '#3B82F6',
-    secondaryColor: '#1E40AF'
+    primaryColor: '#2563EB',
+    secondaryColor: '#1D4ED8'
   });
 
   const sections = [
@@ -57,6 +63,13 @@ export default function WebsiteBuilderPage() {
       ...prev,
       [field]: value
     }));
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    // Extract current locale from pathname
+    const currentLocale = pathname.split('/')[1] || 'en';
+    router.push(`/${currentLocale}`);
   };
 
   return (
@@ -75,6 +88,9 @@ export default function WebsiteBuilderPage() {
           <div className="flex items-center gap-4">
             <Button variant="outline">Save Draft</Button>
             <Button>Publish Website</Button>
+            <Button variant="outline" onClick={handleLogout}>
+              Logout
+            </Button>
           </div>
         </div>
       </div>
@@ -186,10 +202,12 @@ export default function WebsiteBuilderPage() {
 
         {/* Right Panel - Live Preview */}
         <div className="flex-1 bg-gray-100 overflow-hidden">
-          <WebsitePreview 
-            businessData={businessData} 
-            onUpdateBusinessData={updateBusinessData}
-          />
+          <DeviceViewSwitcher>
+            <WebsitePreview 
+              businessData={businessData} 
+              onUpdateBusinessData={updateBusinessData}
+            />
+          </DeviceViewSwitcher>
         </div>
       </div>
     </div>
