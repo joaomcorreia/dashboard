@@ -68,7 +68,7 @@ interface AITextSuggestion {
 class ApiClient {
   private baseUrl: string;
   private accessToken: string | null = null;
-  private mockMode: boolean = false; // Disabled - using real API
+  private mockMode: boolean = true; // Enabled for development - using mock data
 
   constructor() {
     this.baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
@@ -410,8 +410,27 @@ interface LibraryItem {
   id: string;
   name: string;
   target: 'DJANGO' | 'NEXTJS';
+  category: string;
+  subcategory: string;
+  description: string;
+  tags: string;
   zip_file: string;
+  preview_image?: string;
+  file_path: string;
   created_at: string;
+}
+
+interface LibraryCategory {
+  category: string;
+  category_display: string;
+  subcategories: LibrarySubcategory[];
+}
+
+interface LibrarySubcategory {
+  subcategory: string;
+  subcategory_display: string;
+  item_count: number;
+  items: LibraryItem[];
 }
 
 export const apiClient = new ApiClient();
@@ -675,4 +694,54 @@ export async function deleteLibraryItem(id: string): Promise<void> {
   }
 }
 
-export type { User, AuthTokens, TemplateUpload, ConversionJob, LibraryItem };
+// Get all library categories with items
+export async function getLibraryCategories(): Promise<LibraryCategory[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const response = await fetch(`${baseUrl}/templates/library/categories/`, {
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  return response.json();
+}
+
+// Get library items from a specific category
+export async function getLibraryCategory(category: string): Promise<LibraryItem[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const response = await fetch(`${baseUrl}/templates/library/categories/${category}/`, {
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  return response.json();
+}
+
+// Get library items from a specific subcategory
+export async function getLibrarySubcategory(
+  category: string, 
+  subcategory: string
+): Promise<LibraryItem[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE || 'http://127.0.0.1:8000/api';
+  const response = await fetch(`${baseUrl}/templates/library/categories/${category}/${subcategory}/`, {
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  return response.json();
+}
+
+// Get homepage items (main-website/homepage subcategory)
+export async function getHomepageItems(): Promise<LibraryItem[]> {
+  return getLibrarySubcategory('main-website', 'homepage');
+}
+
+export type { User, AuthTokens, TemplateUpload, ConversionJob, LibraryItem, LibraryCategory, LibrarySubcategory };

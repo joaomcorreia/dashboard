@@ -1,94 +1,145 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { Navigation } from '@/components/ui/Navigation';
+import DynamicSection from '../../components/sections/DynamicSection';
+import * as api from '@/lib/api';
+
+interface LibraryItem {
+  id: string;
+  name: string;
+  target: 'DJANGO' | 'NEXTJS';
+  category: string;
+  subcategory: string;
+  description: string;
+  tags: string;
+  zip_file: string;
+  preview_image?: string;
+  file_path: string;
+  created_at: string;
+}
 
 export default function HomePage() {
   const t = useTranslations();
   const params = useParams();
   const currentLocale = params.locale as string;
+  const [library, setLibrary] = useState<LibraryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadLibrary();
+  }, []);
+
+  const loadLibrary = async () => {
+    try {
+      setLoading(true);
+      // Load only homepage items for the main homepage
+      const homepageItems = await api.getLibrarySubcategory('main-website', 'homepage').catch(() => []);
+      
+      // Only show homepage items to prevent overwhelming the user
+      setLibrary(homepageItems);
+    } catch (error) {
+      console.error('Error loading library:', error);
+      // Check if error is an Event object
+      if (error && typeof error === 'object' && error.constructor.name === 'Event') {
+        console.error('FOUND IT: Event object in loadLibrary error!', error);
+        alert('Template error detected: An event object was passed to error handler');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Define section order priorities
+  const getSectionOrder = (name: string): number => {
+    const lowerName = name.toLowerCase();
+    
+    // Higher priority = appears first (lower number = higher priority)
+    if (lowerName.includes('header') || lowerName.includes('nav')) return 1;
+    if (lowerName.includes('hero') || lowerName.includes('banner') || lowerName === 'home') return 2;
+    if (lowerName.includes('feature') || lowerName.includes('service')) return 3;
+    if (lowerName.includes('about') || lowerName.includes('story')) return 4;
+    if (lowerName.includes('product') || lowerName.includes('showcase')) return 5;
+    if (lowerName.includes('pricing') || lowerName.includes('plan')) return 6;
+    if (lowerName.includes('testimonial') || lowerName.includes('review')) return 7;
+    if (lowerName.includes('team') || lowerName.includes('staff')) return 8;
+    if (lowerName.includes('blog') || lowerName.includes('news')) return 9;
+    if (lowerName.includes('contact') || lowerName.includes('support')) return 10;
+    if (lowerName.includes('footer')) return 11;
+    
+    // Default order for unrecognized sections
+    return 999;
+  };
+
+  const getSortedSections = (libraryItems: LibraryItem[]): LibraryItem[] => {
+    return libraryItems
+      .filter(item => item.target === 'NEXTJS') // Only show Next.js components
+      .sort((a, b) => {
+        const orderA = getSectionOrder(a.name);
+        const orderB = getSectionOrder(b.name);
+        
+        // If same order priority, sort by creation date (older first)
+        if (orderA === orderB) {
+          return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+        }
+        
+        return orderA - orderB;
+      });
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-white">
       {/* Navigation */}
       <Navigation />
 
-      {/* Hero Section */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-            {t('homepage.subtitle')}
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            {t('homepage.description')}
-          </p>
-          <div className="flex justify-center space-x-4">
-            <Link 
-              href={`/${currentLocale}/register`} 
-              className="bg-primary-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-primary-700 transition-colors"
-            >
-              {t('homepage.getStarted')}
-            </Link>
-            <Link 
-              href={`/${currentLocale}/templates`} 
-              className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg text-lg font-medium hover:bg-gray-50 transition-colors"
-            >
-              View Templates
-            </Link>
+      {/* Dynamic Sections from Library */}
+      <main>
+        {loading ? (
+          <div className="flex items-center justify-center py-24">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <span className="ml-3 text-gray-600 text-lg">Loading website sections...</span>
           </div>
-        </div>
+        ) : (
+          <div>
+            {/* Render each library item as a section in proper order */}
+            {getSortedSections(library)
+              .map((item) => (
+                <DynamicSection 
+                  key={item.id} 
+                  libraryItem={item}
+                />
+              ))}
 
-        {/* Features Section */}
-        <div className="mt-24">
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            {t('homepage.features.title')}
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {t('homepage.features.templates.title')}
-              </h3>
-              <p className="text-gray-600">
-                {t('homepage.features.templates.description')}
-              </p>
-            </div>
-            
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {t('homepage.features.sections.title')}
-              </h3>
-              <p className="text-gray-600">
-                {t('homepage.features.sections.description')}
-              </p>
-            </div>
-            
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {t('homepage.features.responsive.title')}
-              </h3>
-              <p className="text-gray-600">
-                {t('homepage.features.responsive.description')}
-              </p>
-            </div>
+            {/* Admin Access - Only show if library is empty or for development */}
+            {library.length === 0 && (
+              <section className="py-16 bg-gray-100">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                  <div className="bg-white rounded-lg shadow-sm border p-8">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">No Sections Available</h2>
+                    <p className="text-gray-600 mb-6">Upload screenshots and convert them to Next.js components to populate this homepage</p>
+                    <div className="flex justify-center space-x-4">
+                      <Link 
+                        href={`/${currentLocale}/admin/templates?tab=main`}
+                        className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition-colors"
+                      >
+                        Upload Templates
+                      </Link>
+                      <Link 
+                        href={`/${currentLocale}/admin/templates`}
+                        className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg text-lg font-medium hover:bg-gray-50 transition-colors"
+                      >
+                        Admin Panel
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
           </div>
-        </div>
+        )}
       </main>
     </div>
   );

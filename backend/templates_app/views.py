@@ -11,8 +11,8 @@ from rest_framework.permissions import AllowAny
 from django.http import FileResponse
 from django.conf import settings
 
-from .models import TemplateUpload, ConversionJob, LibraryItem
-from .serializers import TemplateUploadSerializer, ConversionJobSerializer, LibraryItemSerializer, CreateConversionJobSerializer
+from .models import TemplateUpload, ConversionJob, LibraryItem, WebsiteTemplate
+from .serializers import TemplateUploadSerializer, ConversionJobSerializer, LibraryItemSerializer, LibraryItemCategorySerializer, CreateConversionJobSerializer, WebsiteTemplateSerializer
 from .adapters import magicai_converter
 from .utils.zipdir import zipdir
 
@@ -198,6 +198,111 @@ class LibraryItemDownloadView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
+class LibraryItemDetailView(APIView):
+    permission_classes = [AllowAny]
+    
+    def get(self, request, pk):
+        try:
+            item = LibraryItem.objects.get(pk=pk)
+            serializer = LibraryItemSerializer(item)
+            return Response(serializer.data)
+        except LibraryItem.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def delete(self, request, pk):
+        try:
+            item = LibraryItem.objects.get(pk=pk)
+            
+            # Delete the zip file if it exists
+            if item.zip_file and hasattr(item.zip_file, 'path'):
+                try:
+                    if os.path.exists(item.zip_file.path):
+                        os.remove(item.zip_file.path)
+                except Exception as e:
+                    print(f"Warning: Could not delete zip file {item.zip_file.path}: {e}")
+            
+            # Delete the library item record
+            item.delete()
+            
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except LibraryItem.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response(
+                {"error": f"Failed to delete library item: {str(e)}"}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+class LibraryCategoriesView(APIView):
+    """View to get all available template categories and subcategories"""
+    permission_classes = [AllowAny]
+    
+    def get(self, request):
+        from collections import defaultdict
+        
+        # Get all unique category/subcategory combinations with item counts
+        items = LibraryItem.objects.all()
+        categories = defaultdict(lambda: defaultdict(list))
+        
+        for item in items:
+            categories[item.category][item.subcategory].append(item)
+        
+        # Format the response
+        result = []
+        for category, subcategories in categories.items():
+            category_data = {
+                'category': category,
+                'category_display': dict(LibraryItem.CATEGORY_CHOICES).get(category, category),
+                'subcategories': []
+            }
+            
+            for subcategory, items_list in subcategories.items():
+                subcategory_data = {
+                    'subcategory': subcategory,
+                    'subcategory_display': dict(LibraryItem.SUBCATEGORY_CHOICES).get(subcategory, subcategory),
+                    'item_count': len(items_list),
+                    'items': LibraryItemSerializer(items_list, many=True).data
+                }
+                category_data['subcategories'].append(subcategory_data)
+            
+            result.append(category_data)
+        
+        return Response(result)
+
+
+class LibraryCategoryView(APIView):
+    """View to get items from a specific category"""
+    permission_classes = [AllowAny]
+    
+    def get(self, request, category):
+        items = LibraryItem.objects.filter(category=category)
+        if not items.exists():
+            return Response(
+                {'error': f'No items found for category: {category}'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        serializer = LibraryItemSerializer(items, many=True)
+        return Response(serializer.data)
+
+
+class LibrarySubcategoryView(APIView):
+    """View to get items from a specific category and subcategory"""
+    permission_classes = [AllowAny]
+    
+    def get(self, request, category, subcategory):
+        items = LibraryItem.objects.filter(category=category, subcategory=subcategory)
+        if not items.exists():
+            return Response(
+                {'error': f'No items found for {category}/{subcategory}'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        serializer = LibraryItemSerializer(items, many=True)
+        return Response(serializer.data)
+
+
 class HealthzView(APIView):
     permission_classes = [AllowAny]
     
@@ -325,3 +430,52 @@ def run_conversion(job_id):
             job.status = 'ERROR'
             job.log = f"{user_msg}\n\nTechnical Details:\n{error_msg}\n\nFull Error Log:\n{full_traceback}"
             job.save()
+
+
+class WebsiteTemplateListCreateView(APIView):
+    """API view for listing and creating user website templates"""
+    permission_classes = [AllowAny]
+    
+    def get(self, request):
+        templates = WebsiteTemplate.objects.all()
+        serializer = WebsiteTemplateSerializer(templates, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = WebsiteTemplateSerializer(data=request.data)
+        if serializer.is_valid():
+            template = serializer.save()
+            return Response(WebsiteTemplateSerializer(template).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class WebsiteTemplateDetailView(APIView):
+    """API view for retrieving, updating, and deleting specific website templates"""
+    permission_classes = [AllowAny]
+    
+    def get(self, request, pk):
+        try:
+            template = WebsiteTemplate.objects.get(pk=pk)
+            serializer = WebsiteTemplateSerializer(template)
+            return Response(serializer.data)
+        except WebsiteTemplate.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def put(self, request, pk):
+        try:
+            template = WebsiteTemplate.objects.get(pk=pk)
+            serializer = WebsiteTemplateSerializer(template, data=request.data)
+            if serializer.is_valid():
+                template = serializer.save()
+                return Response(WebsiteTemplateSerializer(template).data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except WebsiteTemplate.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def delete(self, request, pk):
+        try:
+            template = WebsiteTemplate.objects.get(pk=pk)
+            template.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except WebsiteTemplate.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)

@@ -93,22 +93,8 @@ export default function LoginForm() {
     try {
       await login(formData.email, formData.password);
       
-      // Implement custom redirects based on email/user type
-      const email = formData.email.toLowerCase();
-      
-      if (email === 'admin@test.com') {
-        // Admin user - redirect to user dashboard (after payment)
-        router.push(`/${currentLocale}/dashboard/user`);
-      } else if (email === 'user@test.com') {
-        // Regular user - redirect to builder (for website building)
-        router.push(`/${currentLocale}/builder`);
-      } else if (email === 'business@example.com') {
-        // Business user - redirect to admin dashboard
-        router.push(`/${currentLocale}/admin`);
-      } else {
-        // Default behavior for other emails
-        router.push(`/${currentLocale}/dashboard`);
-      }
+      // All users redirect to unified dashboard
+      router.push(`/${currentLocale}/dashboard`);
     } catch (err) {
       // Error is handled by the auth context
       console.error('Login failed:', err);

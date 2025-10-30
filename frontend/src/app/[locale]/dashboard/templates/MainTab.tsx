@@ -100,6 +100,11 @@ export default function MainTab() {
     }
   };
 
+  const handleDeleteLibraryItem = (itemId: string) => {
+    // Remove item from local state immediately for better UX
+    setLibrary(prev => prev.filter(item => item.id !== itemId));
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
@@ -137,7 +142,7 @@ export default function MainTab() {
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
           Template Library
         </h2>
-        <LibraryList items={library} />
+        <LibraryList items={library} onItemDeleted={handleDeleteLibraryItem} />
       </section>
     </div>
   );

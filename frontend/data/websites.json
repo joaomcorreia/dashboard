@@ -1,0 +1,45 @@
+{
+  "websites": [
+    {
+      "id": 1,
+      "name": "Mary's Restaurant",
+      "businessName": "Mary's Restaurant",
+      "domain": "mary's-restaurant.com",
+      "status": "published",
+      "lastUpdated": "Just now",
+      "pageViews": 0,
+      "thumbnail": "/api/placeholder/300/200",
+      "createdAt": "2025-10-30T18:42:36.585Z",
+      "data": {
+        "businessName": "Mary's Restaurant",
+        "businessType": "restaurant",
+        "tagline": "Exceptional Dining Experience - Where Every Meal Tells a Story",
+        "description": "Experience culinary excellence at our restaurant, where fresh ingredients meet innovative cooking techniques. We create memorable dining experiences with exceptional service, carefully crafted dishes, and a warm, welcoming atmosphere that brings people together.",
+        "address": "Raamsdonksveer",
+        "phone": "326598656",
+        "email": "joao-correia@outlook.com",
+        "hasLogo": false,
+        "logoOption": "upload",
+        "useJCWFacebook": true,
+        "aboutDescription": "asdfas",
+        "keywords": [],
+        "aiGeneratedContent": "",
+        "services": [
+          {
+            "name": "asd",
+            "description": "asdf",
+            "price": ""
+          }
+        ],
+        "gallery": [],
+        "galleryCategories": {},
+        "logo": {},
+        "facebookPage": "",
+        "selectedTemplate": "e41b2672-9dea-4896-b5fc-73bd86d22d23"
+      },
+      "template": "e41b2672-9dea-4896-b5fc-73bd86d22d23",
+      "previewUrl": "data:text/html;charset=utf-8,%0A%3C!DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22en%22%3E%0A%3Chead%3E%0A%20%20%20%20%3Cmeta%20charset%3D%22UTF-8%22%3E%0A%20%20%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%20initial-scale%3D1.0%22%3E%0A%20%20%20%20%3Ctitle%3EMary's%20Restaurant%3C%2Ftitle%3E%0A%20%20%20%20%3Cstyle%3E%0A%20%20%20%20%20%20%20%20*%20%7B%20margin%3A%200%3B%20padding%3A%200%3B%20box-sizing%3A%20border-box%3B%20%7D%0A%20%20%20%20%20%20%20%20body%20%7B%20font-family%3A%20-apple-system%2C%20BlinkMacSystemFont%2C%20'Segoe%20UI'%2C%20sans-serif%3B%20line-height%3A%201.6%3B%20color%3A%20%23333%3B%20%7D%0A%20%20%20%20%20%20%20%20.container%20%7B%20max-width%3A%201200px%3B%20margin%3A%200%20auto%3B%20padding%3A%200%2020px%3B%20%7D%0A%20%20%20%20%20%20%20%20.header%20%7B%20background%3A%20linear-gradient(135deg%2C%20%23667eea%200%25%2C%20%23764ba2%20100%25)%3B%20color%3A%20white%3B%20padding%3A%2060px%200%3B%20text-align%3A%20center%3B%20%7D%0A%20%20%20%20%20%20%20%20.header%20h1%20%7B%20font-size%3A%203rem%3B%20margin-bottom%3A%201rem%3B%20font-weight%3A%20700%3B%20%7D%0A%20%20%20%20%20%20%20%20.header%20p%20%7B%20font-size%3A%201.2rem%3B%20margin-bottom%3A%202rem%3B%20opacity%3A%200.9%3B%20%7D%0A%20%20%20%20%20%20%20%20.section%20%7B%20padding%3A%2060px%200%3B%20%7D%0A%20%20%20%20%20%20%20%20.about%20%7B%20background%3A%20%23f8f9fa%3B%20%7D%0A%20%20%20%20%20%20%20%20.about%20h2%20%7B%20font-size%3A%202.5rem%3B%20margin-bottom%3A%202rem%3B%20text-align%3A%20center%3B%20color%3A%20%23333%3B%20%7D%0A%20%20%20%20%20%20%20%20.about%20p%20%7B%20font-size%3A%201.1rem%3B%20line-height%3A%201.8%3B%20max-width%3A%20800px%3B%20margin%3A%200%20auto%3B%20text-align%3A%20center%3B%20%7D%0A%20%20%20%20%20%20%20%20.services%20%7B%20padding%3A%2060px%200%3B%20%7D%0A%20%20%20%20%20%20%20%20.services%20h2%20%7B%20font-size%3A%202.5rem%3B%20margin-bottom%3A%203rem%3B%20text-align%3A%20center%3B%20color%3A%20%23333%3B%20%7D%0A%20%20%20%20%20%20%20%20.services-grid%20%7B%20display%3A%20grid%3B%20grid-template-columns%3A%20repeat(auto-fit%2C%20minmax(300px%2C%201fr))%3B%20gap%3A%202rem%3B%20%7D%0A%20%20%20%20%20%20%20%20.service-card%20%7B%20background%3A%20white%3B%20padding%3A%202rem%3B%20border-radius%3A%2010px%3B%20box-shadow%3A%200%205px%2015px%20rgba(0%2C0%2C0%2C0.1)%3B%20text-align%3A%20center%3B%20%7D%0A%20%20%20%20%20%20%20%20.service-card%20h3%20%7B%20font-size%3A%201.5rem%3B%20margin-bottom%3A%201rem%3B%20color%3A%20%23667eea%3B%20%7D%0A%20%20%20%20%20%20%20%20.service-card%20p%20%7B%20margin-bottom%3A%201rem%3B%20%7D%0A%20%20%20%20%20%20%20%20.price%20%7B%20font-size%3A%201.25rem%3B%20font-weight%3A%20bold%3B%20color%3A%20%2328a745%3B%20%7D%0A%20%20%20%20%20%20%20%20.contact%20%7B%20background%3A%20%23667eea%3B%20color%3A%20white%3B%20text-align%3A%20center%3B%20%7D%0A%20%20%20%20%20%20%20%20.contact%20h2%20%7B%20font-size%3A%202.5rem%3B%20margin-bottom%3A%202rem%3B%20%7D%0A%20%20%20%20%20%20%20%20.contact-info%20%7B%20display%3A%20flex%3B%20justify-content%3A%20center%3B%20gap%3A%203rem%3B%20flex-wrap%3A%20wrap%3B%20%7D%0A%20%20%20%20%20%20%20%20.contact-item%20%7B%20text-align%3A%20center%3B%20%7D%0A%20%20%20%20%20%20%20%20.contact-item%20h3%20%7B%20margin-bottom%3A%200.5rem%3B%20%7D%0A%20%20%20%20%3C%2Fstyle%3E%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%20%20%20%20%3Cheader%20class%3D%22header%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22container%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ch1%3EMary's%20Restaurant%3C%2Fh1%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3EExceptional%20Dining%20Experience%20-%20Where%20Every%20Meal%20Tells%20a%20Story%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fheader%3E%0A%0A%20%20%20%20%3Csection%20class%3D%22about%20section%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22container%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ch2%3EAbout%20Us%3C%2Fh2%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3EExperience%20culinary%20excellence%20at%20our%20restaurant%2C%20where%20fresh%20ingredients%20meet%20innovative%20cooking%20techniques.%20We%20create%20memorable%20dining%20experiences%20with%20exceptional%20service%2C%20carefully%20crafted%20dishes%2C%20and%20a%20warm%2C%20welcoming%20atmosphere%20that%20brings%20people%20together.%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fsection%3E%0A%0A%20%20%20%20%0A%20%20%20%20%3Csection%20class%3D%22services%20section%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22container%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ch2%3EOur%20Services%3C%2Fh2%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22services-grid%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22service-card%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%3Easd%3C%2Fh3%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3Easdf%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fsection%3E%0A%20%20%20%20%0A%0A%20%20%20%20%3Csection%20class%3D%22contact%20section%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22container%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ch2%3EContact%20Us%3C%2Fh2%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22contact-info%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22contact-item%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%3EEmail%3C%2Fh3%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3Ejoao-correia%40outlook.com%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22contact-item%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%3EPhone%3C%2Fh3%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3E326598656%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22contact-item%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%3EAddress%3C%2Fh3%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3ERaamsdonksveer%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fsection%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E"
+    }
+  ],
+  "counter": 2
+}

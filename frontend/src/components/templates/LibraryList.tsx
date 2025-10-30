@@ -8,6 +8,7 @@ import {
   TagIcon,
   CalendarIcon
 } from '@heroicons/react/24/outline';
+import * as api from '@/lib/api';
 
 interface LibraryItem {
   id: string;
@@ -19,6 +20,7 @@ interface LibraryItem {
 
 interface LibraryListProps {
   items: LibraryItem[];
+  onItemDeleted?: (itemId: string) => void;
 }
 
 const TargetBadge = ({ target }: { target: 'DJANGO' | 'NEXTJS' }) => {
@@ -37,8 +39,9 @@ const TargetBadge = ({ target }: { target: 'DJANGO' | 'NEXTJS' }) => {
   );
 };
 
-export default function LibraryList({ items }: LibraryListProps) {
+export default function LibraryList({ items, onItemDeleted }: LibraryListProps) {
   const [filter, setFilter] = useState<'ALL' | 'DJANGO' | 'NEXTJS'>('ALL');
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const filteredItems = items.filter(item => 
     filter === 'ALL' || item.target === filter
@@ -52,6 +55,23 @@ export default function LibraryList({ items }: LibraryListProps) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const handleDelete = async (item: LibraryItem) => {
+    if (!confirm(`Are you sure you want to delete "${item.name}" from the library? This action cannot be undone.`)) {
+      return;
+    }
+
+    setDeletingId(item.id);
+    try {
+      await api.deleteLibraryItem(item.id);
+      onItemDeleted?.(item.id);
+    } catch (error) {
+      console.error('Failed to delete library item:', error);
+      alert('Failed to delete the template. Please try again.');
+    } finally {
+      setDeletingId(null);
+    }
   };
 
   if (items.length === 0) {
@@ -132,10 +152,15 @@ export default function LibraryList({ items }: LibraryListProps) {
                 </button>
 
                 <button
-                  className="inline-flex items-center p-2 border border-transparent rounded-md text-gray-400 hover:text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  onClick={() => handleDelete(item)}
+                  disabled={deletingId === item.id}
+                  className="inline-flex items-center p-2 border border-transparent rounded-md text-gray-400 hover:text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
                   title="Delete from library"
                 >
                   <TrashIcon className="w-4 h-4" />
+                  {deletingId === item.id && (
+                    <div className="ml-1 w-3 h-3 border border-red-500 border-t-transparent rounded-full animate-spin" />
+                  )}
                 </button>
               </div>
             </div>

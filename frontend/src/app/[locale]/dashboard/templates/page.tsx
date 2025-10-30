@@ -12,7 +12,6 @@ export default function DashboardTemplatesPage() {
   const tabs = [
     { id: 'website', label: 'Website Templates' },
     { id: 'email', label: 'Email Templates' },
-    { id: 'main', label: 'Main Template' },
   ];
 
   return (
@@ -61,8 +60,6 @@ export default function DashboardTemplatesPage() {
               <p className="text-gray-500">Coming soon - Create and manage email templates here.</p>
             </div>
           )}
-          
-          {activeTab === 'main' && <MainTab />}
         </div>
       </div>
     </div>

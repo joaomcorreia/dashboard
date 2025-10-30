@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from uuid import UUID
-from .models import TemplateUpload, ConversionJob, LibraryItem
+from .models import TemplateUpload, ConversionJob, LibraryItem, WebsiteTemplate
 
 
 class TemplateUploadSerializer(serializers.ModelSerializer):
@@ -20,10 +20,23 @@ class ConversionJobSerializer(serializers.ModelSerializer):
 
 
 class LibraryItemSerializer(serializers.ModelSerializer):
+    file_path = serializers.CharField(source='get_file_path', read_only=True)
+    
     class Meta:
         model = LibraryItem
-        fields = ['id', 'name', 'target', 'zip_file', 'created_at']
-        read_only_fields = ['id', 'created_at']
+        fields = [
+            'id', 'name', 'target', 'category', 'subcategory', 
+            'description', 'tags', 'zip_file', 'preview_image', 
+            'file_path', 'created_at'
+        ]
+        read_only_fields = ['id', 'file_path', 'created_at']
+
+
+class LibraryItemCategorySerializer(serializers.Serializer):
+    """Serializer for category-based library item listing"""
+    category = serializers.CharField()
+    subcategory = serializers.CharField()
+    items = LibraryItemSerializer(many=True, read_only=True)
 
 
 class CreateConversionJobSerializer(serializers.Serializer):
@@ -38,3 +51,13 @@ class CreateConversionJobSerializer(serializers.Serializer):
             raise serializers.ValidationError({"upload": "This field is required (or use 'upload_id')."})
         attrs["upload_uuid"] = UUID(str(upload_uuid))
         return attrs
+
+
+class WebsiteTemplateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WebsiteTemplate
+        fields = [
+            'id', 'name', 'description', 'category', 'sections', 
+            'preview', 'screenshot', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at']

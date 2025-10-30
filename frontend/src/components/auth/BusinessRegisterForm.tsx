@@ -381,8 +381,4 @@ export default function BusinessRegisterForm() {
       </div>
     </div>
   );
-} 
- d i n s d a g   2 8   o k t o b e r   2 0 2 5   1 4 : 3 5 : 5 0  
-  
-  
- 
+}

@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { ErrorHandler } from '@/components/ui/ErrorHandler';
 
 export const metadata: Metadata = {
   title: 'Just Code Works',
@@ -25,6 +26,7 @@ export default async function RootLayout({
   return (
     <NextIntlClientProvider messages={messages}>
       <AuthProvider>
+        <ErrorHandler />
         {children}
       </AuthProvider>
     </NextIntlClientProvider>
